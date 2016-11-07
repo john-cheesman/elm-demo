@@ -9,10 +9,10 @@
     "url": "https://github.com/moarwick/elm-webpack-starter"
   },
   "scripts": {
-    "start": "npm run build",
-    "start:dev": "webpack-dev-server --hot --inline --content-base src/",
+    "start": "webpack-dev-server --hot --inline --content-base src/",
     "build": "rimraf dist && webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "autoprefixer": "^6.3.6",
