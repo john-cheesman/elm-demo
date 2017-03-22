@@ -1,46 +1,60 @@
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.App as Html
-import Html.Events exposing ( onClick )
+module Main exposing (..)
 
--- component import example
-import Components.Hello exposing ( hello )
+import Html exposing (Html, button, div, text, section)
+import Html.Attributes exposing (class)
+import Html.Events exposing (onClick)
 
 
--- APP
-main : Program Never
+main : Program Never Int Msg
 main =
-  Html.beginnerProgram { model = model, view = view, update = update }
+    Html.beginnerProgram { model = model, view = view, update = update }
+
 
 
 -- MODEL
-type alias Model = Int
+
+
+type alias Model =
+    Int
+
 
 model : number
-model = 0
+model =
+    0
+
 
 
 -- UPDATE
-type Msg = NoOp | Increment
+
+
+type Msg
+    = Increment
+    | Decrement
+    | Reset
+
 
 update : Msg -> Model -> Model
 update msg model =
-  case msg of
-    NoOp -> model
-    Increment -> model + 1
+    case msg of
+        Increment ->
+            model + 1
+
+        Decrement ->
+            model - 1
+
+        Reset ->
+            0
+
 
 
 -- VIEW
--- Html is defined as: elem [ attribs ][ children ]
--- CSS can be applied via class names or inline style attrib
+
+
 view : Model -> Html Msg
 view model =
-  div [ class "o-layout o-layout--center" ] [
-    div [ class "o-layout__item u-1/1  u-1/2@tablet  u-1/3@desktop", style [("text-align", "center")] ] [
-      img [ src "static/img/elm.jpg" ] []
-      , hello model                                                   -- ext 'hello' component (takes 'model' as arg)
-      , p [] [ text ( "Elm Webpack Starter" ) ]
-      , button [ class "c-btn c-btn--primary", onClick Increment ]    -- click handler
-          [ text "FTW!" ]
-    ]
-  ]
+    section [ class "counter" ]
+        [ button [ onClick Decrement ] [ text "-" ]
+        , div [] [ text (toString model) ]
+        , button [ onClick Increment ] [ text "+" ]
+        , button [ onClick Reset ] [ text "Reset" ]
+        ]
