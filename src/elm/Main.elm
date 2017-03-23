@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text, section)
+import Html exposing (Html, button, div, text, section, h1)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
@@ -53,7 +53,9 @@ update msg model =
 view : Model -> Html Msg
 view model =
     section [ class "counter" ]
-        [ button [ onClick Decrement ] [ text "-" ]
+        [
+        h1 [] [ text "Counter" ]
+        , button [ onClick Decrement ] [ text "-" ]
         , div [] [ text (toString model) ]
         , button [ onClick Increment ] [ text "+" ]
         , button [ onClick Reset ] [ text "Reset" ]
