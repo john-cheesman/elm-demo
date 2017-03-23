@@ -1,11 +1,11 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text, section)
-import Html.Attributes exposing (class)
-import Html.Events exposing (onClick)
+import Html exposing (Html, button, div, text, section, h1, input)
+import Html.Attributes exposing (class, placeholder)
+import Html.Events exposing (onInput)
 
 
-main : Program Never Int Msg
+main : Program Never { content: String } Msg
 main =
     Html.beginnerProgram { model = model, view = view, update = update }
 
@@ -15,12 +15,14 @@ main =
 
 
 type alias Model =
-    Int
+    {
+        content: String
+    }
 
 
-model : number
+model : { content: String }
 model =
-    0
+    { content = "" }
 
 
 
@@ -28,22 +30,14 @@ model =
 
 
 type Msg
-    = Increment
-    | Decrement
-    | Reset
+    = Change String
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Increment ->
-            model + 1
-
-        Decrement ->
-            model - 1
-
-        Reset ->
-            0
+        Change newContent ->
+            { model | content = newContent }
 
 
 
@@ -52,9 +46,8 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    section [ class "counter" ]
-        [ button [ onClick Decrement ] [ text "-" ]
-        , div [] [ text (toString model) ]
-        , button [ onClick Increment ] [ text "+" ]
-        , button [ onClick Reset ] [ text "Reset" ]
+    section [ class "text-reverse" ] [
+        h1 [] [ text "Text reverse" ]
+        , input [ placeholder "Text to reverse", onInput Change ] []
+        , div [] [ text (String.reverse model.content) ]
         ]
